@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'username',
     ];
 
     /**
@@ -30,7 +31,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
+        'remember_token'
     ];
 
     /**
@@ -42,4 +43,39 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    //un usuario puede tener multiple like
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+
+    }
+
+    //Almacena los seguidores de un usuario
+        public function followers()
+        {
+            return $this->belongsToMany(User::class, 'followers', 'user_id', 'follow_id');
+        }
+
+
+    //almacenar los que seguimos
+    public function following()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'follow_id','user_id' );
+    }
+
+    //comprobar si un usuario ya sigue a otro
+
+    public function siguiendo(User $user)
+    {
+        return $this->followers->contains($user->id);
+    }
+
+
+
 }

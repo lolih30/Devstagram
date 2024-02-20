@@ -1,11 +1,12 @@
-
 <!-- directiva en blade -->
 @extends('layouts.app')
 
 @section('titulo')
-    principal
+    Página principal
 @endsection
 
 @section('contenido')
-    
+    <x-listar-post :posts="$posts">
+
+    </x-listar-post>
 @endsection
