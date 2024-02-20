@@ -66,6 +66,6 @@ class RegisterController extends Controller
 
 
         //redireccionar al usuario se usa un helper que se llama redirect
-        return redirect()->route('posts.index');
+        return redirect()->route('posts.index', [auth()->user()->username]);
     }
 }
